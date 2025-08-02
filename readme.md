@@ -34,7 +34,35 @@ demo/
 
 - **Python 3.10+** with `uv` package manager
 - **Node.js 16+** with `npm`
+- **OpenSSL** (for generating key pairs)
 - **Git** (optional, for cloning)
+
+## Key Generation
+
+This demo requires a private/public key pair for JWT authentication. The repository includes pre-generated keys, but you can generate your own using OpenSSL:
+
+### Generate Private Key
+
+```bash
+# Generate a 2048-bit RSA private key
+openssl genrsa -out private.pem 2048
+```
+
+### Generate Public Key
+
+```bash
+# Extract the public key from the private key
+openssl rsa -in private.pem -pubout -out public.pem
+```
+
+### Key Placement
+
+After generating the keys:
+
+1. Place `private.pem` in `TSMcpClient/src/` (client directory)
+2. Place `public.pem` in `PyMcpServer/` (server directory)
+
+**Security Note**: In production, keep private keys secure and never commit them to version control. Consider using environment variables or secure key management systems.
 
 ## Quick Start
 
